@@ -1,5 +1,11 @@
 .env
-/logs
+
+# Docker folders
+/logs/*
+/dags/__pycache__/*
+
+# Added files through curl command
+/data/raw/regions.txt
 
 # Jetbrains users
 /.idea
