@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS codes_ages(
 CREATE TABLE IF NOT EXISTS departements(
     num_dep VARCHAR(2) UNIQUE NOT NULL PRIMARY KEY,
     dep_name VARCHAR(30),
-    region_name VARCHAR(40)
+    region_name VARCHAR(30)
 );
 
 --nomenclature
@@ -28,10 +28,10 @@ CREATE TABLE IF NOT EXISTS corona(
     id SERIAL NOT NULL PRIMARY KEY,
     departement VARCHAR(2) NOT NULL,
     region VARCHAR(30),
-    date_de_passage DATE NOT NULL,
+    jour CHAR(2) NOT NULL,
     mois CHAR(2) NOT NULL,
     annee CHAR(4) NOT NULL,
-    tranche_age INTEGER NOT NULL,
+    code_tranche_age INTEGER NOT NULL,
     nbre_pass_corona INTEGER NOT NULL, 
     nbre_pass_tot INTEGER NOT NULL, 
     nbre_hospit_corona INTEGER NOT NULL, 
@@ -54,6 +54,6 @@ CREATE TABLE IF NOT EXISTS corona(
     FOREIGN KEY(region) 
     REFERENCES departements(region_name),
     CONSTRAINT fk_tranche_age
-    FOREIGN KEY(tranche_age) 
+    FOREIGN KEY(code_tranche_age) 
     REFERENCES codes_ages(code)
 );
