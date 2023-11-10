@@ -48,5 +48,5 @@ CREATE TABLE IF NOT EXISTS corona(
     REFERENCES departements(num_dep),
     CONSTRAINT fk_tranche_age
     FOREIGN KEY(tranche_age) 
-    REFERENCES codes_ages(id_age)
+    REFERENCES codes_ages(code)
 );
