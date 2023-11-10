@@ -179,3 +179,7 @@ File Path                                                                       
 [2023-11-10T13:26:00.439+0000] {manager.py:489} INFO - Checking for new files in /opt/airflow/dags every 300 seconds
 [2023-11-10T13:26:00.440+0000] {manager.py:755} INFO - Searching for files in /opt/airflow/dags
 [2023-11-10T13:26:00.441+0000] {manager.py:758} INFO - There are 0 files in /opt/airflow/dags
+[2023-11-10T13:31:01.124+0000] {manager.py:755} INFO - Searching for files in /opt/airflow/dags
+[2023-11-10T13:31:01.126+0000] {manager.py:758} INFO - There are 0 files in /opt/airflow/dags
+[2023-11-10T13:36:01.856+0000] {manager.py:755} INFO - Searching for files in /opt/airflow/dags
+[2023-11-10T13:36:01.860+0000] {manager.py:758} INFO - There are 0 files in /opt/airflow/dags
