@@ -14,14 +14,15 @@ CREATE TABLE IF NOT EXISTS departements(
     region_name VARCHAR(40)
 );
 
-CREATE TABLE IF NOT EXISTS nomenclature_sos_medecins(
-    id SERIAL NOT NULL PRIMARY KEY,
-    colonne VARCHAR(10),
-    metadata_type VARCHAR(30),
-    description_fr VARCHAR(20),
-    description_en VARCHAR(20),
-    exemple VARCHAR(30)
-);   
+--nomenclature 
+-- CREATE TABLE IF NOT EXISTS nomenclature_sos_medecins(
+--     id SERIAL NOT NULL PRIMARY KEY,
+--     colonne VARCHAR(10),
+--     metadata_type VARCHAR(30),
+--     description_fr VARCHAR(20),
+--     description_en VARCHAR(20),
+--     exemple VARCHAR(30)
+-- );   
 
 CREATE TABLE IF NOT EXISTS corona(
     id SERIAL NOT NULL PRIMARY KEY,
