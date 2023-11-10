@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS departements(
     region_name VARCHAR(40)
 );
 
---nomenclature 
+--nomenclature
 -- CREATE TABLE IF NOT EXISTS nomenclature_sos_medecins(
 --     id SERIAL NOT NULL PRIMARY KEY,
 --     colonne VARCHAR(10),
@@ -27,7 +27,10 @@ CREATE TABLE IF NOT EXISTS departements(
 CREATE TABLE IF NOT EXISTS corona(
     id SERIAL NOT NULL PRIMARY KEY,
     departement VARCHAR(2),
+    region VARCHAR(30),
     date_de_passage DATE NOT NULL,
+    mois CHAR(2) NOT NULL,
+    annee CHAR(4) NOT NULL,
     tranche_age INTEGER NOT NULL,
     nbre_pass_corona INTEGER NOT NULL, 
     nbre_pass_tot INTEGER NOT NULL, 
