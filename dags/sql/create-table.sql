@@ -4,8 +4,7 @@ DROP TABLE IF EXISTS departements;
 DROP TABLE IF EXISTS nomenclature_sos_medecins;
 
 CREATE TABLE IF NOT EXISTS codes_ages(
-    id_age INTEGER UNIQUE PRIMARY KEY,
-    code VARCHAR(1) UNIQUE NOT NULL,
+    code INTEGER UNIQUE NOT NULL PRIMARY KEY,
     tranche_age VARCHAR NOT NULL
 );
 
