@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS departements(
 
 CREATE TABLE IF NOT EXISTS corona(
     id SERIAL NOT NULL PRIMARY KEY,
-    departement VARCHAR(2),
+    departement VARCHAR(2) NOT NULL,
     region VARCHAR(30),
     date_de_passage DATE NOT NULL,
     mois CHAR(2) NOT NULL,
@@ -50,6 +50,9 @@ CREATE TABLE IF NOT EXISTS corona(
     CONSTRAINT fk_departement
     FOREIGN KEY(departement) 
     REFERENCES departements(num_dep),
+    CONSTRAINT fk_region
+    FOREIGN KEY(region) 
+    REFERENCES departements(region_name),
     CONSTRAINT fk_tranche_age
     FOREIGN KEY(tranche_age) 
     REFERENCES codes_ages(code)
