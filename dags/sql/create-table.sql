@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS corona;
+DROP TABLE IF EXISTS corona_records;
 DROP TABLE IF EXISTS codes_ages;
 DROP TABLE IF EXISTS departements;
 DROP TABLE IF EXISTS nomenclature_sos_medecins;
@@ -14,12 +14,12 @@ CREATE TABLE IF NOT EXISTS regions(
 );
 
 CREATE TABLE IF NOT EXISTS departements(
-    num_dep VARCHAR(2) UNIQUE NOT NULL PRIMARY KEY,
+    code VARCHAR(3) UNIQUE NOT NULL PRIMARY KEY,
     dep_name VARCHAR(30),
-    id_region VARCHAR(10),
+    id_region INTEGER,
     CONSTRAINT fk_region
     FOREIGN KEY(id_region) 
-    REFERENCES regions(id),
+    REFERENCES regions(id)
 );
 
 --nomenclature
@@ -32,13 +32,13 @@ CREATE TABLE IF NOT EXISTS departements(
 --     exemple VARCHAR(30)
 -- );   
 
-CREATE TABLE IF NOT EXISTS corona(
+CREATE TABLE IF NOT EXISTS corona_records(
     id SERIAL NOT NULL PRIMARY KEY,
-    departement VARCHAR(2) NOT NULL,
-    region VARCHAR(30),
-    jour CHAR(2) NOT NULL,
-    mois CHAR(2) NOT NULL,
-    annee CHAR(4) NOT NULL,
+    departement VARCHAR(3) NOT NULL,
+    region INTEGER,
+    jour INTEGER NOT NULL,
+    mois INTEGER NOT NULL,
+    annee INTEGER NOT NULL,
     code_tranche_age INTEGER NOT NULL,
     nbre_pass_corona INTEGER NOT NULL, 
     nbre_pass_tot INTEGER NOT NULL, 
@@ -57,7 +57,7 @@ CREATE TABLE IF NOT EXISTS corona(
     nbre_acte_tot_f INTEGER NOT NULL,
     CONSTRAINT fk_departement
     FOREIGN KEY(departement) 
-    REFERENCES departements(num_dep),
+    REFERENCES departements(code),
     CONSTRAINT fk_region_cor
     FOREIGN KEY(region) 
     REFERENCES regions(id),
