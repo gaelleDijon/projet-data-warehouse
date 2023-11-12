@@ -44,6 +44,14 @@ def transform_and_load():
     df_departements = pd.read_json(
         os.path.expandvars("${AIRFLOW_HOME}/data/raw/departements-region.json")
     )
+    df_departements = df_departements.rename(columns={"region_name": "nom_region"})
+    df_departements = df_departements.merge(df_regions, on="nom_region", how="left")
+    df_departements = df_departements.drop(columns=["nom_region"])
+    df_departements.columns = ["code", "libelle", "code_region"]
+
+    df_regions.columns = ["code", "libelle"]
+    df_regions
+
 
     # Metadata
     df_metadata = pd.read_csv(
