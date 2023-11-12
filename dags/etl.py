@@ -33,12 +33,9 @@ def transform_and_load():
         "C": 3,
         "D": 4,
         "E": 5,
+        "F": 6
     }
     df_tranches_age["code_tranche_age"] = df_tranches_age["code_tranche_age"].map(age_codes)
-    df_tranches_age = pd.concat(
-        [df_tranches_age, pd.DataFrame([{"code_tranche_age": 6, "tranche_age": "non défini"}])],
-        ignore_index=True
-    )
 
     # Départements
     df_departements = pd.read_json(
