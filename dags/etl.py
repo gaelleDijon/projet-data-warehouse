@@ -41,14 +41,12 @@ def transform_and_load():
     df_departements = pd.read_json(
         os.path.expandvars("${AIRFLOW_HOME}/data/raw/departements-region.json")
     )
+    df_departements = df_departements.rename(columns={"region_name": "nom_region"})
+    df_departements = df_departements.merge(df_regions, on="nom_region", how="left")
+    df_departements = df_departements.drop(columns=["nom_region"])
+    df_departements.columns = ["code", "libelle", "code_region"]
 
-    # Metadata
-    df_metadata = pd.read_csv(
-        os.path.expandvars("${AIRFLOW_HOME}/data/raw/metadonnee-urgenceshos-sosmedecin-covid19-quot.csv"),
-        sep=";"
-    )
-    df_metadata.columns = df_metadata.iloc[0]
-    df_metadata = df_metadata.drop(0)
+    df_regions.columns = ["code", "libelle"]
 
     # Urgences
     df_urgences = pd.read_csv(
@@ -58,10 +56,17 @@ def transform_and_load():
     df_urgences = df_urgences.fillna(0)
     df_urgences = df_urgences.rename(columns={"sursaud_cl_age_corona": "code_tranche_age"})
     df_urgences["date_de_passage"] = pd.to_datetime(df_urgences["date_de_passage"])
-    df_urgences["day"] = df_urgences["date_de_passage"].dt.day
-    df_urgences["month"] = df_urgences["date_de_passage"].dt.month
     df_urgences["year"] = df_urgences["date_de_passage"].dt.year
-    df_urgences = df_urgences.drop(columns=["date_de_passage"])
+    df_urgences["month"] = df_urgences["date_de_passage"].dt.month
+    df_urgences["day"] = df_urgences["date_de_passage"].dt.day
+
+    columns_to_keep = [
+    "year", "month", "day", "dep", "code_tranche_age",
+    "pass_tot", "pass_tot_h", "pass_tot_f",
+    "pass_corona", "pass_corona_h", "pass_corona_f",
+    "hospit_corona", "hospit_corona_h", "hospit_corona_f"
+    ]
+    df_urgences = df_urgences[columns_to_keep]
 
     # to be completed once Gaelle pushes the sql instructions
 
