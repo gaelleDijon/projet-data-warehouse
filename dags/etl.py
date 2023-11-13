@@ -65,9 +65,9 @@ def transform_and_load():
 
     columns_to_keep = [
     "year", "month", "day", "dep", "code_tranche_age",
-    "nbre_pass_tot", "nbre_pass_tot_h", "nbre_pass_tot_f",
-    "nbre_pass_corona", "nbre_pass_corona_h", "nbre_pass_corona_f",
-    "nbre_hospit_corona", "nbre_hospit_corona_h", "nbre_hospit_corona_f"
+    "pass_tot", "pass_tot_h", "pass_tot_f",
+    "pass_corona", "pass_corona_h", "pass_corona_f",
+    "hospit_corona", "hospit_corona_h", "hospit_corona_f"
     ]
     df_urgences = df_urgences[columns_to_keep]
 
