@@ -1,6 +1,7 @@
 from airflow import DAG
 from airflow.operators.bash import BashOperator
 from airflow.operators.python import PythonOperator
+from airflow.providers.postgres.operators.postgres import PostgresOperator
 
 from datetime import datetime, timedelta
 import pandas as pd
@@ -85,10 +86,22 @@ with DAG(
         dag=dag
     )
 
+
+
     transform_load = PythonOperator(
         task_id='transform_and_load',
         python_callable=transform_and_load,
         dag=dag
     )
 
-    extract >> transform_load
+
+    create_table = PostgresOperator(
+        task_id="create_table",
+        postgres_conn_id="postgres_connexion",
+        sql='sql/create-table.sql'
+    )
+
+    #todo insert fct
+
+
+    extract >> [transform_load, create_table]
