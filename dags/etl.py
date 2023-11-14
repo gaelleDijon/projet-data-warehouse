@@ -1,6 +1,7 @@
 from airflow import DAG
 from airflow.operators.bash import BashOperator
 from airflow.operators.python import PythonOperator
+from airflow.providers.postgres.operators.postgres import PostgresOperator
 
 from datetime import datetime, timedelta
 import pandas as pd
@@ -55,6 +56,17 @@ def transform_and_load():
     )
     df_urgences = df_urgences.fillna(0)
     df_urgences = df_urgences.rename(columns={"sursaud_cl_age_corona": "code_tranche_age"})
+    df_urgences = df_urgences.rename(columns={
+        "nbre_pass_tot": "pass_tot",
+        "nbre_pass_tot_h": "pass_tot_h",
+        "nbre_pass_tot_f": "pass_tot_f",
+        "nbre_pass_corona": "pass_corona",
+        "nbre_pass_corona_h": "pass_corona_h",
+        "nbre_pass_corona_f": "pass_corona_f",
+        "nbre_hospit_corona": "hospit_corona",
+        "nbre_hospit_corona_h": "hospit_corona_h",
+        "nbre_hospit_corona_f": "hospit_corona_f"
+    })
     df_urgences["date_de_passage"] = pd.to_datetime(df_urgences["date_de_passage"])
     df_urgences["year"] = df_urgences["date_de_passage"].dt.year
     df_urgences["month"] = df_urgences["date_de_passage"].dt.month
@@ -85,10 +97,22 @@ with DAG(
         dag=dag
     )
 
+
+
     transform_load = PythonOperator(
         task_id='transform_and_load',
         python_callable=transform_and_load,
         dag=dag
     )
 
-    extract >> transform_load
+
+    create_table = PostgresOperator(
+        task_id="create_table",
+        postgres_conn_id="postgres_connexion",
+        sql='sql/create-table.sql'
+    )
+
+    #todo insert fct
+
+
+    extract >> [transform_load, create_table]
