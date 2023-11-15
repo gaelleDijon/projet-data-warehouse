@@ -87,10 +87,13 @@ def transform_and_load():
     #insert into datatables
     postgres_sql_upload = PostgresHook(postgres_conn_id="postgres_connexion")
 
-    df_regions.to_sql('regions', postgres_sql_upload.get_sqlalchemy_engine(), if_exists='append', index=False)
-    df_departements.to_sql('departements', postgres_sql_upload.get_sqlalchemy_engine(), if_exists='append', index=False)
-    df_tranches_age.to_sql('codes_ages', postgres_sql_upload.get_sqlalchemy_engine(), if_exists='append', index=False)
-    df_urgences.to_sql('corona_records', postgres_sql_upload.get_sqlalchemy_engine(), if_exists='append', index=False)
+    try:
+        df_regions.to_sql('regions', postgres_sql_upload.get_sqlalchemy_engine(), method='multi', index=False)
+        df_departements.to_sql('departements', postgres_sql_upload.get_sqlalchemy_engine(), method='multi', index=False)
+        df_tranches_age.to_sql('codes_ages', postgres_sql_upload.get_sqlalchemy_engine(), method='multi', index=False)
+        df_urgences.to_sql('corona_records', postgres_sql_upload.get_sqlalchemy_engine(), method='multi', index=False)
+    except ValueError as e:
+        print("Value Error, index already exists. Error:", e)
 
     return
 
@@ -118,11 +121,6 @@ with DAG(
         python_callable=transform_and_load,
         dag=dag
     )
-
-
-    
-
-    #todo insert fct
 
 
     [extract, create_table] >> transform_load
