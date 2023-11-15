@@ -88,10 +88,10 @@ def transform_and_load():
     postgres_sql_upload = PostgresHook(postgres_conn_id="postgres_connexion")
 
     try:
-        df_regions.to_sql('regions', postgres_sql_upload.get_sqlalchemy_engine(), method='multi', index=False)
-        df_departements.to_sql('departements', postgres_sql_upload.get_sqlalchemy_engine(), method='multi', index=False)
-        df_tranches_age.to_sql('codes_ages', postgres_sql_upload.get_sqlalchemy_engine(), method='multi', index=False)
-        df_urgences.to_sql('corona_records', postgres_sql_upload.get_sqlalchemy_engine(), method='multi', index=False)
+        df_regions.to_sql('regions', postgres_sql_upload.get_sqlalchemy_engine(), if_exists='append',index=False)
+        df_departements.to_sql('departements', postgres_sql_upload.get_sqlalchemy_engine(), if_exists='append', index=False)
+        df_tranches_age.to_sql('codes_ages', postgres_sql_upload.get_sqlalchemy_engine(), if_exists='append', index=False)
+        df_urgences.to_sql('corona_records', postgres_sql_upload.get_sqlalchemy_engine(), if_exists='append', index=False)
     except ValueError as e:
         print("Value Error, index already exists. Error:", e)
 
