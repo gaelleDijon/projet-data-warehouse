@@ -1,7 +1,7 @@
 DROP TABLE IF EXISTS corona_records;
 DROP TABLE IF EXISTS codes_ages;
 DROP TABLE IF EXISTS departements;
-DROP TABLE IF EXISTS nomenclature_sos_medecins;
+DROP TABLE IF EXISTS regions;
 
 CREATE TABLE IF NOT EXISTS codes_ages(
     code INTEGER UNIQUE NOT NULL PRIMARY KEY,
@@ -34,33 +34,23 @@ CREATE TABLE IF NOT EXISTS departements(
 
 CREATE TABLE IF NOT EXISTS corona_records(
     id SERIAL NOT NULL PRIMARY KEY,
-    departement VARCHAR(3) NOT NULL,
-    region INTEGER,
-    jour INTEGER NOT NULL,
-    mois INTEGER NOT NULL,
-    annee INTEGER NOT NULL,
+    year INTEGER NOT NULL,
+    month INTEGER NOT NULL,
+    day INTEGER NOT NULL,
+    dep VARCHAR(3) NOT NULL,
     code_tranche_age INTEGER NOT NULL,
-    nbre_pass_corona INTEGER NOT NULL, 
-    nbre_pass_tot INTEGER NOT NULL, 
-    nbre_hospit_corona INTEGER NOT NULL, 
-    nbre_pass_corona_h INTEGER NOT NULL, 
-    nbre_pass_corona_f INTEGER NOT NULL, 
-    nbre_pass_tot_h INTEGER NOT NULL, 
-    nbre_pass_tot_f INTEGER NOT NULL, 
-    nbre_hospit_corona_h INTEGER NOT NULL, 
-    nbre_hospit_corona_f INTEGER NOT NULL, 
-    nbre_acte_corona INTEGER NOT NULL, 
-    nbre_acte_tot INTEGER NOT NULL,
-    nbre_acte_corona_h INTEGER NOT NULL, 
-    nbre_acte_corona_f INTEGER NOT NULL, 
-    nbre_acte_tot_h INTEGER NOT NULL, 
-    nbre_acte_tot_f INTEGER NOT NULL,
+    pass_tot INTEGER NOT NULL,
+    pass_tot_h INTEGER NOT NULL, 
+    pass_tot_f INTEGER NOT NULL,
+    pass_corona INTEGER NOT NULL, 
+    pass_corona_h INTEGER NOT NULL, 
+    pass_corona_f INTEGER NOT NULL, 
+    hospit_corona INTEGER NOT NULL, 
+    hospit_corona_h INTEGER NOT NULL, 
+    hospit_corona_f INTEGER NOT NULL, 
     CONSTRAINT fk_departement
-    FOREIGN KEY(departement) 
+    FOREIGN KEY(dep) 
     REFERENCES departements(code),
-    CONSTRAINT fk_region_cor
-    FOREIGN KEY(region) 
-    REFERENCES regions(id),
     CONSTRAINT fk_tranche_age
     FOREIGN KEY(code_tranche_age) 
     REFERENCES codes_ages(code)
