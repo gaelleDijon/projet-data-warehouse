@@ -2,6 +2,7 @@ from airflow import DAG
 from airflow.operators.bash import BashOperator
 from airflow.operators.python import PythonOperator
 from airflow.providers.postgres.operators.postgres import PostgresOperator
+from airflow.hooks.postgres_hook import PostgresHook
 
 from datetime import datetime, timedelta
 import pandas as pd
@@ -72,6 +73,9 @@ def transform_and_load():
     df_urgences["month"] = df_urgences["date_de_passage"].dt.month
     df_urgences["day"] = df_urgences["date_de_passage"].dt.day
 
+    #department str must be at least 2 digits, like : 01, 02, ... to match dep code from other file
+    df_urgences["dep"] = df_urgences["dep"].astype(str).str.zfill(2)
+
     columns_to_keep = [
     "year", "month", "day", "dep", "code_tranche_age",
     "pass_tot", "pass_tot_h", "pass_tot_f",
@@ -80,7 +84,13 @@ def transform_and_load():
     ]
     df_urgences = df_urgences[columns_to_keep]
 
-    # to be completed once Gaelle pushes the sql instructions
+    #insert into datatables
+    postgres_sql_upload = PostgresHook(postgres_conn_id="postgres_connexion")
+
+    df_regions.to_sql('regions', postgres_sql_upload.get_sqlalchemy_engine(), if_exists='append', index=False)
+    df_departements.to_sql('departements', postgres_sql_upload.get_sqlalchemy_engine(), if_exists='append', index=False)
+    df_tranches_age.to_sql('codes_ages', postgres_sql_upload.get_sqlalchemy_engine(), if_exists='append', index=False)
+    df_urgences.to_sql('corona_records', postgres_sql_upload.get_sqlalchemy_engine(), if_exists='append', index=False)
 
     return
 
@@ -97,7 +107,11 @@ with DAG(
         dag=dag
     )
 
-
+    create_table = PostgresOperator(
+        task_id="create_table",
+        postgres_conn_id="postgres_connexion",
+        sql='sql/create-table.sql'
+    )
 
     transform_load = PythonOperator(
         task_id='transform_and_load',
@@ -106,13 +120,9 @@ with DAG(
     )
 
 
-    create_table = PostgresOperator(
-        task_id="create_table",
-        postgres_conn_id="postgres_connexion",
-        sql='sql/create-table.sql'
-    )
+    
 
     #todo insert fct
 
 
-    extract >> [transform_load, create_table]
+    [extract, create_table] >> transform_load

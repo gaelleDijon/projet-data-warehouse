@@ -1,25 +1,25 @@
-DROP TABLE IF EXISTS corona_records;
-DROP TABLE IF EXISTS codes_ages;
-DROP TABLE IF EXISTS departements;
-DROP TABLE IF EXISTS regions;
+DROP TABLE IF EXISTS corona_records CASCADE;
+DROP TABLE IF EXISTS codes_ages CASCADE;
+DROP TABLE IF EXISTS departements CASCADE;
+DROP TABLE IF EXISTS regions CASCADE;
 
 CREATE TABLE IF NOT EXISTS codes_ages(
-    code INTEGER UNIQUE NOT NULL PRIMARY KEY,
+    code_tranche_age INTEGER UNIQUE NOT NULL PRIMARY KEY,
     tranche_age VARCHAR NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS regions(
-    id INTEGER UNIQUE NOT NULL PRIMARY KEY,
-    region_name VARCHAR(30)
+    code INTEGER UNIQUE NOT NULL PRIMARY KEY,
+    libelle VARCHAR(30)
 );
 
 CREATE TABLE IF NOT EXISTS departements(
     code VARCHAR(3) UNIQUE NOT NULL PRIMARY KEY,
-    dep_name VARCHAR(30),
-    id_region INTEGER,
+    libelle VARCHAR(30),
+    code_region INTEGER,
     CONSTRAINT fk_region
-    FOREIGN KEY(id_region) 
-    REFERENCES regions(id)
+    FOREIGN KEY(code_region) 
+    REFERENCES regions(code)
 );
 
 --nomenclature
@@ -53,5 +53,5 @@ CREATE TABLE IF NOT EXISTS corona_records(
     REFERENCES departements(code),
     CONSTRAINT fk_tranche_age
     FOREIGN KEY(code_tranche_age) 
-    REFERENCES codes_ages(code)
+    REFERENCES codes_ages(code_tranche_age)
 );
