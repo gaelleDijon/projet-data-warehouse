@@ -23,7 +23,8 @@ todo Gaelle
 
 Plusieurs pistes sont possibles pour l'analyse de ces données :
 
-- Quel est le pourcentage de passages aux urgences pour suspicion de covid-19 par rapport au nombre de passages total, pour les personnes agées de plus de 65 ans, en 2023 ?
+- Quel est le pourcentage de passages aux urgences pour suspicion de covid-19 par rapport au nombre de passages total,
+  pour les personnes agées de plus de 65 ans, en 2023 ?
     ```sql
     SELECT
         CASE
@@ -40,12 +41,13 @@ Plusieurs pistes sont possibles pour l'analyse de ces données :
       AND year = 2023;
     ```
 
-    | pourcentage               |
-    |---------------------------|
-    | 1.21                      |
+  | pourcentage               |
+      |---------------------------|
+  | 1.21                      |
 
 
-- Quel est le pourcentage de passages aux urgences pour suspicion de covid-19 par rapport au nombre de passages total, par tranche d’âge en 2022 ?
+- Quel est le pourcentage de passages aux urgences pour suspicion de covid-19 par rapport au nombre de passages total,
+  par tranche d’âge en 2022 ?
     ```sql
     SELECT
         codes_ages.code_tranche_age,
@@ -68,17 +70,18 @@ Plusieurs pistes sont possibles pour l'analyse de ces données :
         codes_ages.code_tranche_age;
     ```
 
-    | code_tranche_age | tranche_age | pourcentage               |
-    | ---------------- | ------------| ------------------------- |
-    | 0                | Tout âge    | 1.22                      |
-    | 1                | 0-4 ans     | 0.61                      |
-    | 2                | 5-14 ans    | 0.08                      |
-    | 3                | 15-44 ans   | 0.44                      |
-    | 4                | 45-64 ans   | 0.88                      |
-    | 5                | 65-74 ans   | 1.98                      |
-    | 6                | 75 et plus  | 3.65                      |
+  | code_tranche_age | tranche_age | pourcentage               |
+      | ---------------- | ------------| ------------------------- |
+  | 0                | Tout âge    | 1.22                      |
+  | 1                | 0-4 ans     | 0.61                      |
+  | 2                | 5-14 ans    | 0.08                      |
+  | 3                | 15-44 ans   | 0.44                      |
+  | 4                | 45-64 ans   | 0.88                      |
+  | 5                | 65-74 ans   | 1.98                      |
+  | 6                | 75 et plus  | 3.65                      |
 
-- Quel est le pourcentage de passages aux urgences pour suspicion de covid-19 par rapport au nombre de passages total pour les hommes par an et par département ?
+- Quel est le pourcentage de passages aux urgences pour suspicion de covid-19 par rapport au nombre de passages total
+  pour les hommes par an et par département ?
     ```sql
     SELECT
         year,
@@ -98,20 +101,21 @@ Plusieurs pistes sont possibles pour l'analyse de ces données :
         year, departements.libelle;
     ```
 
-    | year | libelle                  | pourcentage               |
-    |------|--------------------------|---------------------------|
-    | 2022 | Ain                      | 1.25                      |
-    | 2022 | Aisne                    | 1.69                      |
-    | 2022 | Allier                   | 1.97                      |
-    | 2022 | Alpes-de-Haute-Provence  | 2.80                      |
-    | 2022 | Alpes-Maritimes          | 1.20                      |
-    | 2022 | Ardèche                  | 1.25                      |
-    | 2022 | Ardennes                 | 0.73                      |
-    | 2022 | Ariège                   | 1.42                      |
-    | ...  | ...                      | ...                       |
+  | year | libelle                  | pourcentage               |
+      |------|--------------------------|---------------------------|
+  | 2022 | Ain                      | 1.25                      |
+  | 2022 | Aisne                    | 1.69                      |
+  | 2022 | Allier                   | 1.97                      |
+  | 2022 | Alpes-de-Haute-Provence  | 2.80                      |
+  | 2022 | Alpes-Maritimes          | 1.20                      |
+  | 2022 | Ardèche                  | 1.25                      |
+  | 2022 | Ardennes                 | 0.73                      |
+  | 2022 | Ariège                   | 1.42                      |
+  | ...  | ...                      | ...                       |
 
 
-- Quel est le pourcentage de passages aux urgences pour suspicion de covid-19 par rapport au nombre de passages total pour les femmes par an et par département ?
+- Quel est le pourcentage de passages aux urgences pour suspicion de covid-19 par rapport au nombre de passages total
+  pour les femmes par an et par département ?
     ```sql
     SELECT
         year,
@@ -131,20 +135,21 @@ Plusieurs pistes sont possibles pour l'analyse de ces données :
         year, departements.libelle;
     ```
 
-    | year | libelle                 | pourcentage               |
-    |------|-------------------------|---------------------------|
-    | 2022 | Ain                     | 1.22                      |
-    | 2022 | Aisne                   | 1.67                      |
-    | 2022 | Allier                  | 1.92                      |
-    | 2022 | Alpes-de-Haute-Provence | 2.16                      |
-    | 2022 | Alpes-Maritimes         | 1.30                      |
-    | 2022 | Ardèche                 | 1.87                      |
-    | 2022 | Ardennes                | 0.78                      |
-    | 2022 | Ariège                  | 1.45                      |
-    | ... | ... | ... |
+  | year | libelle                 | pourcentage               |
+      |------|-------------------------|---------------------------|
+  | 2022 | Ain                     | 1.22                      |
+  | 2022 | Aisne                   | 1.67                      |
+  | 2022 | Allier                  | 1.92                      |
+  | 2022 | Alpes-de-Haute-Provence | 2.16                      |
+  | 2022 | Alpes-Maritimes         | 1.30                      |
+  | 2022 | Ardèche                 | 1.87                      |
+  | 2022 | Ardennes                | 0.78                      |
+  | 2022 | Ariège                  | 1.45                      |
+  | ... | ... | ... |
 
 
-- Quel est le pourcentage de passages aux urgences pour suspicion de covid-19 par rapport au nombre de passages total, par mois et par région ?
+- Quel est le pourcentage de passages aux urgences pour suspicion de covid-19 par rapport au nombre de passages total,
+  par mois et par région ?
     ```sql
     SELECT
         year,
@@ -168,18 +173,18 @@ Plusieurs pistes sont possibles pour l'analyse de ces données :
         year, month;
     ```
 
-    | year | month | libelle                   | pourcentage               |
-    |------|-------|---------------------------|---------------------------|
-    | 2022 | 12    | Corse                     | 1.67                      |
-    | 2022 | 12    | Auvergne-Rhône-Alpes       | 1.23                      |
-    | 2022 | 12    | Hauts-de-France            | 1.27                      |
-    | 2022 | 12    | Nouvelle-Aquitaine         | 1.79                      |
-    | 2022 | 12    | La Réunion                 | 2.14                      |
-    | 2022 | 12    | Provence-Alpes-Côte d'Azur | 1.73                      |
-    | 2022 | 12    | Mayotte                    | 0                         |
-    | 2022 | 12    | Pays de la Loire           | 1.36                      |
-    | 2022 | 12    | Occitanie                  | 1.17                      |
-    | ...  | ...   | ...                       | ...                       |
+  | year | month | libelle                   | pourcentage               |
+      |------|-------|---------------------------|---------------------------|
+  | 2022 | 12    | Corse                     | 1.67                      |
+  | 2022 | 12    | Auvergne-Rhône-Alpes       | 1.23                      |
+  | 2022 | 12    | Hauts-de-France            | 1.27                      |
+  | 2022 | 12    | Nouvelle-Aquitaine         | 1.79                      |
+  | 2022 | 12    | La Réunion                 | 2.14                      |
+  | 2022 | 12    | Provence-Alpes-Côte d'Azur | 1.73                      |
+  | 2022 | 12    | Mayotte                    | 0                         |
+  | 2022 | 12    | Pays de la Loire           | 1.36                      |
+  | 2022 | 12    | Occitanie                  | 1.17                      |
+  | ...  | ...   | ...                       | ...                       |
 
 
 - Quel est le rapport entre le nombre des hospitalisations des hommes et celui des femmes par jour et par région ?
@@ -209,18 +214,17 @@ Plusieurs pistes sont possibles pour l'analyse de ces données :
         day, month, year, regions.libelle;
     ```
 
-    | day | month | year | libelle                   | nb_femmes | nb_hommes | rapport               |
-    |-----|-------|------|---------------------------|-----------|-----------|-----------------------|
-    | 1   | 1     | 2023 | Auvergne-Rhône-Alpes       | 10        | 15        | 1.5                   |
-    | 1   | 1     | 2023 | Bourgogne-Franche-Comté    | 6         | 4         | 0.67                  |
-    | 1   | 1     | 2023 | Bretagne                  | 7         | 10        | 1.43                  |
-    | 1   | 1     | 2023 | Centre-Val de Loire        | 3         | 2         | 0.67                  |
-    | 1   | 1     | 2023 | Corse                     | 0         | 0         | 0                     |
-    | 1   | 1     | 2023 | Grand Est                  | 12        | 13        | 1.08                  |
-    | 1   | 1     | 2023 | Guadeloupe                 | 0         | 1         | 0                     |
-    | 1   | 1     | 2023 | Guyane                    | 0         | 0         | 0                     |
-    | 1   | 1     | 2023 | Hauts-de-France            | 6         | 9         | 1.5                   |
-
+  | day | month | year | libelle                   | nb_femmes | nb_hommes | rapport               |
+      |-----|-------|------|---------------------------|-----------|-----------|-----------------------|
+  | 1   | 1     | 2023 | Auvergne-Rhône-Alpes       | 10        | 15        | 1.5                   |
+  | 1   | 1     | 2023 | Bourgogne-Franche-Comté    | 6         | 4         | 0.67                  |
+  | 1   | 1     | 2023 | Bretagne                  | 7         | 10        | 1.43                  |
+  | 1   | 1     | 2023 | Centre-Val de Loire        | 3         | 2         | 0.67                  |
+  | 1   | 1     | 2023 | Corse                     | 0         | 0         | 0                     |
+  | 1   | 1     | 2023 | Grand Est                  | 12        | 13        | 1.08                  |
+  | 1   | 1     | 2023 | Guadeloupe                 | 0         | 1         | 0                     |
+  | 1   | 1     | 2023 | Guyane                    | 0         | 0         | 0                     |
+  | 1   | 1     | 2023 | Hauts-de-France            | 6         | 9         | 1.5                   |
 
 De cette façon, différents dashboards sont faisables, par exemple en utilisant matplotlib :
 
