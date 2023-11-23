@@ -26,7 +26,7 @@ Une fois les fichiers récupérés, allez dans le répertoire du projet et **lan
 docker-compose up
 ```
 
-Si vous êtes sous une distribution Linux, assurez-vous d'avoir les permissions necessaires, la commande :
+Si vous êtes sous une distribution Linux, assurez-vous d'avoir les permissions nécessaire, la commande :
 
 ```
 echo -e "AIRFLOW_UID=$(id -u)" > .env
