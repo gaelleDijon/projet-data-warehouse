@@ -52,7 +52,7 @@ Nos données sont organisées en étoiles avec :
 - **departements** : table des dimensions des départements
 - **regions** : table des dimensions des régions
 
-![schema de notre entrepot](https://drive.google.com/file/d/1MI0jsyXjjiYwMV3Z57DpkmYcuc48q0o-/view)
+![schema de notre entrepot](https://drive.google.com/uc?export=view&id=1MI0jsyXjjiYwMV3Z57DpkmYcuc48q0o-)
 
 Après extraction des fichiers CSV, JSON et TXT, nous avons nettoyé les données brutes et vérifié leur conformité avec les cas d'utilisatons, ces opérations ont pour but de faciliter l'exploitation des données, pour ce faire, nous avons :
 
