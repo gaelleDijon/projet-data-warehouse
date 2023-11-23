@@ -13,11 +13,30 @@ Ce projet a pour but la mise en place d'un DAG Airflow permettant :
 
 ## Comment lancer notre projet ?
 
-todo Gaelle
+Docker doit être **installé et à jour sur votre système**. Si ce n'est pas déjà le cas, téléchargez et installez Docker depuis leur [site officiel](https://www.docker.com/get-started/).
+Téléchargez manuellement les fichiers du projet ou clonez les à l'aide de la commande :
+
+```
+git clone https://github.com/gaelleDijon/projet-data-warehouse.git
+```
+
+Une fois les fichiers récupérés, allez dans le répertoire du projet et **lancez Docker** et chargez les images de Postgresql et Airflow, nécessaires pour tester notre projet avec la commande :
+
+```
+docker-compose up
+```
+
+Configurez une connexion postgres sur Airflow, avec pour id **postgres_connexion** et testez la pour vous assurer de son bon fonctionnement.
+
+Une fois la configuration terminée, vous pouvez activer le DAG nommé **ETL** et le déclencher pour tester l'extraction, la transformation et le chargement des données.
+
+Pour arrêter Docker et nettoyer les volumes, utilisez la commande :
+
+```
+docker-compose down --volumes
+```
 
 ## Choix des traitements de données
-
-todo Gaelle
 
 ## Les analyses possibles
 
