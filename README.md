@@ -26,6 +26,12 @@ Une fois les fichiers récupérés, allez dans le répertoire du projet et **lan
 docker-compose up
 ```
 
+Si vous êtes sous une distribution Linux, assurez-vous d'avoir les permissions necessaires, la commande :
+
+```
+echo -e "AIRFLOW_UID=$(id -u)" > .env
+```
+
 Configurez une connexion postgres sur Airflow, avec pour id **postgres_connexion** et testez la pour vous assurer de son bon fonctionnement.
 
 Une fois la configuration terminée, vous pouvez activer le DAG nommé **ETL** et le déclencher pour tester l'extraction, la transformation et le chargement des données.
@@ -37,6 +43,26 @@ docker-compose down --volumes
 ```
 
 ## Choix des traitements de données
+
+Afin que notre entrepot de données réponde aux problématiques propres à notre cas d'utilisation, nous avons d'abord définit un schéma des données telles qu'elles seront enregistrées dans l'entrepot final.
+Nos données sont organisées en étoiles avec :
+
+- **corona_records** : la table des faits, qui contient l'ensemble des enregistrements des urgences
+- **codes_ages** : table de dimensions des tranches d'ages et de leurs codes
+- **departements** : table des dimensions des départements
+- **regions** : table des dimensions des régions
+
+![schema de notre entrepot](https://drive.google.com/file/d/1MI0jsyXjjiYwMV3Z57DpkmYcuc48q0o-/view)
+
+Après extraction des fichiers CSV, JSON et TXT, nous avons nettoyé les données brutes et vérifié leur conformité avec les cas d'utilisatons, ces opérations ont pour but de faciliter l'exploitation des données, pour ce faire, nous avons :
+
+- Remplacé les champs vides par des 0 : afin de ne pas générer d'erreurs lors des analyses, les champs vides du ficiher des données des urgences, ont été remplacés par des 0. Nous avons privilégié cette méthode car dans ce cas, les enregistrements vides sont équivalents à null. Les calculs concervent leurs cohérence.
+- Fait un mapping des code des tranches d'âge afin d'avoir la même nomenclature que dans les enregistrements des données des urgences.
+- Effectué des opérations sur les colonnes telles que :
+  - le renommage : notamment sur les colonnes des enregistrements des urgences, afin d'uniformiser le nom des colonnes et de leurs références et de les rendre plus lisible.
+  - la suppression des colonnes non utilisées
+  - la création, par exemple, pour faciliter l'analyse par la suite, des colonnes year, month et day ont été créées en séparant la colonne date des données des urgences
+- Modifié le format des champs de certaines colonnes dans un but d'uniformisation pour le chargement dans des tables.
 
 ## Les analyses possibles
 
