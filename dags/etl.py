@@ -119,10 +119,4 @@ with DAG(
         dag=dag
     )
 
-
-    
-
-    #todo insert fct
-
-
     [extract, create_table] >> transform_load
